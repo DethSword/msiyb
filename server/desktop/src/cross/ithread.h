@@ -12,50 +12,50 @@
 #include "threadsecurity.h"
 #include "../tools/exceptions/threadexception.h"
 
-/// The flags that control the creation of the thread.
+/// The flags that control the creation of the thread
 typedef enum
 {
-	RUNIMMEDIATLY,		///< The thread runs immediately after creation.
+	RUNIMMEDIATLY,		///< The thread runs immediately after its creation
 	CREATESUSPENDED,	///< The thread is created in a suspended state
-	RESERVESTACK		///< Specifies the initial reserve size of the stack.
+	RESERVESTACK		///< Specifies the initial reserve size of the stack
 } t_flags;
 
 /*!
 \class IThread ithread.h "server\desktop\src\cross\ithread.h"
-\brief  Class-interface for OS depended classes
-Defined methods for threads should be realized in OS depended classes
+\brief  The class-interface for the OS-dependent classes.
+The defined methods for the threads should be realized in the OS-dependent classes.
 */
 class IThread
 {
 public:
 
 	/*!
-	Set up thread before launch
-	\param[in] threadFunc Pointer to a function to be executed by the thread.
-	\param[in] threadFuncArgs A pointer to a variable to be passed to the thread.
+	Sets up a thread before the launch.
+	\param[in] threadFunc The pointer to a function to be executed by the thread.
+	\param[in] threadFuncArgs The pointer to a variable to be passed to the thread.
 	\param[in] threadStackSize The initial size of the stack, in bytes.
-	\param[in] threadFlags The flags that control the creation of the thread
-	\param[in] threadSecurityAttributes Determines if returned handle can be inherited by child.
+	\param[in] threadFlags The flags that control the creation of the thread.
+	\param[in] threadSecurityAttributes Determines if the returned handle can be inherited by the child.
 	*/
 	virtual void Init(void* threadFunc, void* threadFuncArgs, size_t threadStackSize, t_flags threadFlags, t_secattr threadSecurityAttributes) = 0;
 	
 	/*!
-	Launch thread with setted parameters.
-	\param[in] threadID ID of thread to launch.
+	Launches a thread with set parameters.
+	\param[in] threadID The ID of the thread to be launched.
 	*/
 	virtual void Start() = 0;
 
 	/*!
-	Returns launched thread system ID.
-	\param[in] Local thread ID.
-	\return Launched thread system ID.
+	Returns the launched thread system ID.
+	\param[in] The local thread ID.
+	\return The launched thread system ID.
 	*/
 	virtual long GetThreadID() = 0;
 
 	/*!
-	Check if thread comleted his work.
-	\param[out] result Value returned from thread function.
-	\return TRUE if still active and FASLE in other case
+	Checks if the thread completed its work.
+	\param[out] result The value returned from the thread function.
+	\return TRUE if still active and FALSE otherwise.
 	*/
 	virtual bool CheckActive(void *result = nullptr) = 0;
 };

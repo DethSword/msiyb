@@ -19,51 +19,51 @@ typedef UnixThread OSThread;
 
 /*!
 \class Thread thread.h "server\desktop\src\common\thread.h"
-\brief  Thread interface.
-Provide interface to single thread structure and it's action.
-Factory for unix/bsd/windows structure of thread.
+\brief  The thread interface.
+Provides an interface to a single thread structure and its action.
+The factory for the unix/bsd/windows structure of the thread.
 */
 class Thread
 {
 public:
 
 	/*!
-	Initialises OS depended thread structure.
+	Initialises the OS-dependent thread structure.
 	*/
 	Thread();
 
 	/*!
-	Dealocates memory of OS depended object.
+	Deallocates memory of the OS-dependent object.
 	*/
 	~Thread();
 
 	/*!
-	Try to start new thread. If number of active threads is already
-	equal to max thread count, looks for completed threads and tried one more time.
-	\param[in] threadFunc Pointer to a function to be executed by the thread.
-	\param[in] threadFuncArgs A pointer to a variable to be passed to the thread.
-	\param[out] result Value returned from thread function.
-	\return Thread ID if new thread started.
+	Tries to start a new thread. If the number of active threads is already
+	equal to the max thread count, looks for the completed threads and tries one more time.
+	\param[in] threadFunc The pointer to a function to be executed by the thread.
+	\param[in] threadFuncArgs The pointer to a variable to be passed to the thread.
+	\param[out] result The value returned from the thread function.
+	\return The thread ID if the new thread is started.
 	*/
 	int Start(void *threadFunc, void *threadFuncArgs, void *result = nullptr);
 
 	void* GetResult();
 
 	/*!
-	Checks if thread completed it's work
-	\param[in] threadID Id if thread to check.
-	\return TRUE if completed, FALSE in other case
+	Checks if the thread completed its work.
+	\param[in] threadID The ID of the thread to be checked.
+	\return TRUE if completed, FALSE otherwise.
 	*/
 	bool IsCompleted();
 
 	/*!
-	Returns maximum amount of threads can be launched. Static.
-	\return Maximum amount of threads can be launched.
+	Returns the maximum number of the threads that can be started. Static.
+	\return The maximum amount of the threads can be started.
 	*/
 	static int GetMaxThreadCount();
 
 private:
-	int _id;				///< Current thread ID.
-	void *_result;			///< Value returned from thread function.
-	OSThread *_thread;		///< OS depended thread structure.
+	int _id;				///< The current thread ID.
+	void *_result;			///< The value returned from the thread function.
+	OSThread *_thread;		///< The OS-dependent thread structure.
 };

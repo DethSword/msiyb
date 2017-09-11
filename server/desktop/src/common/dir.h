@@ -30,7 +30,7 @@ public:
 	File& SearchFileName(const char *fileName);
 	static File& SearchFileName(const char *path, const char *fileName);
 
-	vector<File&> SearchFileExt(const char* fileExtention);
+	vector<File&> SearchFileExt(const char* fileExtention);	//std::reference_wrapper? http://artlang.net/article/view/7/
 	static vector<File&> SearchFileExt(const char *path, const char* fileExtention);
 	
 	vector<File&> SearchFileTime(time_t fileTime);

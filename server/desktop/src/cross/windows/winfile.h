@@ -16,179 +16,179 @@ using namespace std;
 
 /*!
 \class WinFile winfile.h "server\desktop\src\cross\windows\winfile.h"
-\brief  Windows depended structure of file.
-Provides windows-specified access to file methods.
+\brief  The Windows dependent structure of the file.
+Provides the Windows-specified access to the file methods.
 */
 class WinFile : public IFile
 {
 public:
 	/*!
-	Initialize filename with null values.
+	Initializes a filename with null values.
 	*/
 	WinFile();
 	
 	/*!
-	Set fileName with determ value.
-	\param[in] fileName Name of file.
+	Sets a fileName with  the determined value.
+	\param[in] fileName The name of the file.
 	*/
 	WinFile(const char *fileName);
 
 	/*!
-	Dealocates memory and closes file description.
+	Deallocates memory and closes the file description.
 	*/
 	~WinFile();
 	
 	/*!
-	Opens file in predetermined mode.
-	\param[in] mode Mode to open file (list of possibles modes defined in ifile.h).
+	Opens the file in the predetermined mode.
+	\param[in] mode The mode to open the file in (the list of the possible modes is defined in ifile.h).
 	*/
 	virtual void Open(FileOpenMode mode) override;
 
 	/*!
-	Open file.
-	\param[in] fileName Name of file to open.
+	Opens the file.
+	\param[in] fileName The name of the file to be opened.
 	\param[in] mode Depends mode in which file will be opened.
 	*/
 	virtual void Open(const char *fileName, FileOpenMode mode) override;
 
 	/*!
-	Open file. Static. For TCHAR type.
-	\param[in] fileName Name of file to open.
-	\param[in] mode Depends mode in which file will be opened.
-	\return Handle of file
+	Opens the file. Static. For TCHAR.
+	\param[in] fileName The name of the file to be opened.
+	\param[in] mode Determines(?) the mode in which the file will be opened.
+	\return The handle of the file.
 	*/
 	static HANDLE tOpen(const TCHAR *fileName, FileOpenMode mode);
 
 	/*!
-	Closes file descriptor.
+	Closes the file descriptor.
 	*/
 	virtual void Close() override;
 
 	/*!
-	Close file. Static.
-	\param[in] hFile Handle of opened file.
+	Closes the file. Static.
+	\param[in] hFile The handle of the opened file.
 	*/
 	static void Close(HANDLE hFile);
 
 	/*!
-	Set new file name.
-	\param[in] newFileName Name to be associated to a current file.
+	Sets a new file name.
+	\param[in] newFileName The name to be associated with the current file.
 	*/
 	virtual void Rename(const char *newFileName) override;
 
 	/*!
-	Set new file name. Static.
-	\param[in] fileName Current name of file.
-	\param[in] newFileName Name to be associated to a current file.
+	Sets a new file name. Static.
+	\param[in] fileName The current name of the file.
+	\param[in] newFileName The name to be associated with the current file.
 	*/
 	static void Rename(const char *fileName, const char *newFileName);
 
 	/*!
-	Checks if file exists.
-	\return TRUE if file exists, FALSE in other case.
+	Checks if the file exists.
+	\return TRUE if the file exists, FALSE otherwise.
 	*/
 	virtual bool Exist() override;
 
 	/*!
-	Checks if file exists. Static.
-	\param[in] fileName Name of file.
-	\return TRUE if file exists, FALSE in other case.
+	Checks if the file exists. Static.
+	\param[in] fileName The name of the file.
+	\return TRUE if the file exists, FALSE otherwise.
 	*/
 	static bool Exist(const char *fileName);
 
 	/*!
-	Checks if file exists. Static. For TCHAR type.
-	\param[in] wFileName Name of file.
-	\return TRUE if file exists, FALSE in other case.
+	Checks if the file exists. Static. For TCHAR.
+	\param[in] wFileName The name of the file.
+	\return TRUE if the file exists, FALSE otherwise.
 	*/
 	static bool tExist(const TCHAR *tFileName);
 
 	/*!
-	Deletes file.
+	Deletes the file.
 	*/
 	virtual void Delete() override;
 
 	/*!
-	Deletes file. Static.
-	\param[in] fileName Name of file.
+	Deletes the file. Static.
+	\param[in] fileName The name of the file.
 	*/
 	static void Delete(const char *fileName);
 
 	/*!
-	Deletes file. Static. For TCHAR type.
-	\param[in] fileName Name of file.
+	Deletes the file. Static. For TCHAR.
+	\param[in] fileName The name of the file.
 	*/
 	static void tDelete(const TCHAR *tFileName);
 
 	/*!
-	Return size of file.
-	\return Size of file.
+	Returns the size of the file.
+	\return The size of the file.
 	*/
 	virtual size_lt FileSize() override;
 
 	/*!
-	Return size of file. Static.
-	\param[in] hFile Handle of opened file.
-	\return Size of file.
+	Returns the size of the file. Static.
+	\param[in] hFile The handle of the opened file.
+	\return The size of the file.
 	*/
 	static size_lt FileSize(HANDLE hFile);
 
 	/*!
-	Return size of file. Static.
-	\param[in] fileName Name of file.
-	\return Size of file.
+	Returns the size of the file. Static.
+	\param[in] fileName The name of the file.
+	\return The size of the file.
 	*/
 	static size_lt FileSize(const char *fileName);
 
 	/*!
 	Moves the file pointer of the specified file.
-	\param[in] offset Offset of new pointer position
-	\param[in] move Position used as reference for the offset.
-	\return New pointer position
+	\param[in] offset The offset of a new pointer position.
+	\param[in] move The position used as a reference for the offset.
+	\return A new pointer position.
 	*/
 	virtual size_lt Seek(size_lt offset, SeekReference move) override;
 
 	/*!
-	Reads one byte from file.
-	\return Value of readed byte or -1 if can't read (ex. EOF).
+	Reads one byte from the file.
+	\return The value of the read byte or -1 if it can't be read (ex. EOF).
 	*/
 	virtual int ReadByte() override;
 
 	/*!
-	Reads block from file.
-	\param[out] block Array of bytes from file.
-	\param[in] sizeBlock Amount of bytes to be readed.
-	\return Amount of bytes were readed from file.
+	Reads a block from the file.
+	\param[out] block The array of bytes from the file.
+	\param[in] sizeBlock The number of bytes to be read.
+	\return The number of the bytes read from the file.
 	*/
 	virtual size_lt ReadBlock(byte *block, size_lt blockSize = MIN_BUFFER_SIZE) override;
 
 	/*!
-	Reads block from file. Static.
-	\param[in] hFile Handle of opened file.
-	\param[out] block Array of bytes from file.
-	\param[in] sizeBlock Amount of bytes to be readed.
-	\return Amount of bytes were readed from file.
+	Reads a block from the file. Static.
+	\param[in] hFile The handle of the opened file.
+	\param[out] block The array of bytes from the file.
+	\param[in] sizeBlock The number of bytes to be read.
+	\return The number of the bytes read from the file.
 	*/
 	static size_lt ReadBlock(HANDLE hFile, byte *block, size_lt blockSize = MIN_BUFFER_SIZE);
 
 	/*!
-	Writes byte in file.
-	\param[in] b Byte to save.
+	Writes one byte into the file.
+	\param[in] b The byte to be saved.
 	*/
 	virtual void WriteByte(byte b) override;
 
 	/*!
-	Writes block into file.
-	\param[in] block Array of bytes to be writed.
-	\param[in] blockSize Amount of bytes to be writed.
+	Writes a block into the file.
+	\param[in] block The array of bytes to be written.
+	\param[in] blockSize The number of bytes to be written.
 	*/
 	virtual void WriteBlock(byte *block, size_lt sizeBlock) override;
 
 	/*!
-	Writes block into file. Static.
-	\param[in] hFile Handle of opened file.
-	\param[in] block Array of bytes to be writed.
-	\param[in] blockSize Amount of bytes to be writed.
+	Writes a block into the file. Static.
+	\param[in] hFile The handle of the opened file.
+	\param[in] block The array of bytes to be written.
+	\param[in] blockSize The number of bytes to be written.
 	*/
 	static void WriteBlock(HANDLE hFile, byte *block, size_lt sizeBlock);
 
@@ -197,33 +197,33 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 
 	/*!
-	Read full file. Static.
-	\param[in] fileName Name of file to read.
-	\param[out] byteArr Data readed from file.
-	\return Amount of readed bytes.
+	Reads the full file. Static.
+	\param[in] fileName The name of the file to be read.
+	\param[out] byteArr Data read from the file.
+	\return The number of the bytes read.
 	*/
 	static size_lt ReadAllBytes(const char *fileName, byte **block);
 
 	/*!
-	Open file and write all data in it. Static.
-	\param[in] fileName Name of file to read.
-	\param[in] data Data to write in file.
-	\param[in] size Size of data buffer.
-	\param[in] mode Open file mode.
+	Opens the file and writes all data into it. Static.
+	\param[in] fileName The name of the file to be read.
+	\param[in] data The data to be written into the file.
+	\param[in] size The size of the data buffer.
+	\param[in] mode Opens the file mode.
 	*/
 	static void WriteAllBytes(const char *fileName, byte* data, size_lt size, FileOpenMode mode = WRITENEWFILE);
 
 	/*!
 	\TODO
-	Get last modified file. Static.
-	\param[in] string fileName Name of file to read.
-	\return Info about last modified file.
+	Gets the latest file modified. Static.
+	\param[in] string fileName The name of the file to be read.
+	\return Info about the latest file modified.
 	*/
 	static FileMeta LastModified(const char *fileName);
 
 private:
-	HANDLE _hFile;			///< Handle of opened file
-	char *_fileName;		///< Name of file
-	WCHAR *_tFileName;		///< Name of file in unicode charset
-	bool _opened;			///< Determine is file open or not
+	HANDLE _hFile;			///< The handle of the opened file
+	char *_fileName;		///< The name of the file
+	WCHAR *_tFileName;		///< The name of the file in the unicode charset
+	bool _opened;			///< Determines if the file is opened
 };

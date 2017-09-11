@@ -14,8 +14,8 @@ namespace MSIYBCore
 {
 	/*!
 	\class ThreadPool threadpool.h "server\desktop\src\common\threadpool.h"
-	\brief  Thread pool
-	Allocate threads and control them.
+	\brief  The thread pool.
+	Allocates threads and controls them.
 	*/
 	class ThreadPool
 	{

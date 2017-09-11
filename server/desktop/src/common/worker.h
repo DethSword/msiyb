@@ -14,7 +14,7 @@ namespace MSIYBCore
 {
 	/*!
 	\class Worker worker.h "server\desktop\src\common\worker.h"
-	\brief  Working thread
+	\brief  The working thread.
 	*/
 	class Worker
 	{

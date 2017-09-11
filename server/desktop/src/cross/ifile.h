@@ -12,120 +12,120 @@
 #include "windows\unicodeconverter.h"
 #include "..\tools\exceptions\fileexception.h"
 
-/// File meta data structure
+/// The file meta data structure
 typedef struct
 {
-	char* filename;			///< File name with is's local path
-	char* filepath;			///< Path to dir where is our file
-	char* filetype;			///< File extention
-	time_t creationdate;	///< File creation date
+	char* filename;			///< The file name with its local path
+	char* filepath;			///< The path to the file location (dir)
+	char* filetype;			///< The file extention
+	time_t creationdate;	///< The file creation date
 } FileMeta;
 
-/// Opening file rule
+/// The opening file rule
 typedef enum
 {
-	READONLY,		///< Open existing file in READ ONLY mode
-	WRITENEWFILE,	///< Creates new file 
-	WRITE,			///< Open existing file to write (or truncate existing file to write after)
-	READWRITE,		///< Open file for reading and writing (will truncate existing file)
-	WRITEATTHEEND	///< Write in end of the existing file or create new file
+	READONLY,		///< Opens the existing file in the READ ONLY mode
+	WRITENEWFILE,	///< Creates a new file 
+	WRITE,			///< Opens the existing file to write into(or truncate the existing file to write into later)
+	READWRITE,		///< Opens the file for both reading and writing (will truncate the existing file)
+	WRITEATTHEEND	///< Writes in the end of the existing file or creates a new file
 } FileOpenMode;
 
-/// Position used as reference for the offset.
+/// The position used as a reference for the offset
 typedef enum 
 { 
-	START,			/// Beginning of file.
-	CURRENT,		/// Current position of the file pointer.
-	END				/// End of file.
+	START,			/// The beginning of the file
+	CURRENT,		/// The current position of the file pointer
+	END				/// The end of the file
 } SeekReference;
 
 /*!
 \class IFile ifile.h "server\desktop\src\cross\ifile.h"
-\brief  Class-interface for OS depended classes
-Defined methods should be realized in OS depended classes
+\brief  The class-interface for the OS-dependent classes.
+The defined methods should be realized in the OS-dependent classes.
 */
 class IFile
 {
 public:
 	/*!
-	Dealocates memory.
+	Deallocates memory.
 	*/
 	virtual ~IFile() {};
 
 	/*!
-	Opens file in predetermined mode.
-	\param[in] mode Mode to open file (list of possibles modes defined in ifile.h).
+	Opens the file in the predetermined mode.
+	\param[in] mode The mode to open the file with (the list of the possible modes is defined in ifile.h).
 	*/
 	virtual void Open(FileOpenMode mode) = 0;
 
 	/*!
-	Opens file in predetermined mode. Previous opened file will be closed.
-	\param[in] fileName Set name of file to be open.
-	\param[in] mode Mode to open file (list of possibles modes defined in ifile.h).
+	Opens the file in the predetermined mode. The previously opened file will be closed.
+	\param[in] fileName The name of the file to be opened.
+	\param[in] mode The mode to open the file with (the list of the possible modes is defined in ifile.h).
 	*/
 	virtual void Open(const char *fileName, FileOpenMode mode) = 0;
 
 	/*!
-	Closes file descriptor.
+	Closes the file descriptor.
 	*/
 	virtual void Close() = 0;
 
 	/*!
-	Set new file name.
-	\param[in] newFileName Name to be associated to a current file.
+	Sets a new file name.
+	\param[in] newFileName The name to be associated with the current file.
 	*/
 	virtual void Rename(const char *newFileName) = 0;
 
 	/*!
-	Checks if file exists.
-	\return TRUE if file exists, FALSE in other case.
+	Checks if the file exists.
+	\return TRUE if the file exists, FALSE otherwise.
 	*/
 	virtual bool Exist() = 0;
 
 	/*!
-	Deletes file.
+	Deletes the file.
 	*/
 	virtual void Delete() = 0;
 
 	/*!
-	Return size of file.
-	\return Size of file.
+	Returns the size of the file.
+	\return The size of the file.
 	*/
 	virtual size_lt FileSize() = 0;
 
 	/*!
 	Moves the file pointer of the specified file.
-	\param[in] offset Offset of new pointer position
-	\param[in] move Position used as reference for the offset.
-	\return New pointer position
+	\param[in] offset The offset of the new pointer position.
+	\param[in] move The position used as a reference for the offset.
+	\return A new pointer position.
 	*/
 	virtual size_lt Seek(size_lt offset, SeekReference move) = 0;
 
 	/*!
-	Reads one byte from file.
-	\return Value of readed byte or -1 if can't read (ex. EOF).
+	Reads one byte from the file.
+	\return The value of the byte read or -1 if it can't be read (ex. EOF).
 	*/																	  
 	virtual int ReadByte() = 0;
 
 	/*!
-	Reads block from file.
-	\param[out] block Array of bytes from file.
-	\param[in] sizeBlock Amount of bytes to be readed.
-	\return Amount of bytes were readed from file.
+	Reads a block from the file.
+	\param[out] block The array of bytes from the file.
+	\param[in] sizeBlock The number of bytes to be read.
+	\return A number of bytes read from the file.
 	*/
 	virtual size_lt ReadBlock(byte *block, size_lt blockSize) = 0;
 			
 	/*!
-	Writes byte in file.
-	\param[in] b Byte to save.
+	Writes one byte in the file.
+	\param[in] b The byte to be save.
 	*/
 	virtual void WriteByte(byte b) = 0;
 	
 	/*!
-	Writes block into file.
-	Clears cache of readed bytes.
-	\param[in] block Array of bytes to be writed.
-	\param[in] blockSize Amount of bytes to be writed.
+	Writes a block into the file.
+	Clears the cache of the read bytes.
+	\param[in] block The array of bytes to be written.
+	\param[in] blockSize The number of bytes to be written.
 	*/
 	virtual void WriteBlock(byte *block, size_lt sizeBlock) = 0;
 
